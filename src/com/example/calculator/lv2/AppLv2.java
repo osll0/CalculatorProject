@@ -45,7 +45,8 @@ public class AppLv2 {
                 System.out.println(e.getMessage());
             }
 
-            while (true) {
+            boolean proceed = false;
+            while (!proceed) {
                 System.out.println("\n메뉴를 선택하세요.");
                 System.out.println("1. 오래된 결과 삭제");
                 System.out.println("2. 결과 목록 확인");
@@ -59,19 +60,14 @@ public class AppLv2 {
                         calc.removeOldestResult();
                         System.out.println("삭제 후 결과 목록: " + calc.getResults());
                     }
-                    case "2" -> {
-                        System.out.println("현재 결과 목록: " + calc.getResults());
-                    }
+                    case "2" -> System.out.println("현재 결과 목록: " + calc.getResults());
                     case "3" -> {
                         calc.setResults(new LinkedList<>());
                         System.out.println("결과 목록이 초기화되었습니다.");
                     }
-                    case "4" -> {
-                        break;
-                    }
+                    case "4" -> proceed = true;
                     default -> System.out.println("잘못된 입력입니다.");
                 }
-                if (input.equals("4")) break;
             }
             System.out.print("더 계산하시겠습니까? (exit 입력 시 종료): ");
             sc.nextLine();
