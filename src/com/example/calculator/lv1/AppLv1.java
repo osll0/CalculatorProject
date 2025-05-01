@@ -1,20 +1,20 @@
-package com.example.calculator;
+package com.example.calculator.lv1;
 
 import java.util.Scanner;
 
-public class App {
+public class AppLv1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             String input;
-            int num1 = 0, num2 = 0;
+            long num1, num2;
 
             while (true) {
                 System.out.print("첫 번째 숫자를 입력하세요: ");
                 input = sc.next();
                 try {
-                    num1 = Integer.parseInt(input);
+                    num1 = Long.parseLong(input);
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요!");
@@ -25,7 +25,7 @@ public class App {
                 System.out.print("두 번째 숫자를 입력하세요: ");
                 input = sc.next();
                 try {
-                    num2 = Integer.parseInt(input);
+                    num2 = Long.parseLong(input);
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요!");
@@ -36,7 +36,7 @@ public class App {
             input = sc.next();
             char operator = input.charAt(0);
 
-            int result = 0;
+            long result = 0;
             boolean isValid = true;
 
             switch (operator) {
@@ -65,7 +65,7 @@ public class App {
             if (isValid)
                 System.out.println(num1 + " " + operator + " " + num2 + " = " + result);
 
-            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료)");
+            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료): ");
             sc.nextLine();
             input = sc.nextLine();
             if (input.equalsIgnoreCase("exit")) break;
