@@ -7,17 +7,17 @@ import java.util.Scanner;
 public class AppLv3 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArithmeticCalculatorLv3 calc = new ArithmeticCalculatorLv3();
+        ArithmeticCalculatorLv3<Double> calc = new ArithmeticCalculatorLv3<>();
 
         while (true) {
             String input;
-            long num1, num2;
+            double num1, num2;
 
             while (true) {
                 System.out.print("첫 번째 숫자를 입력하세요: ");
                 input = sc.next();
                 try {
-                    num1 = Long.parseLong(input);
+                    num1 = Double.parseDouble(input);
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요!");
@@ -28,7 +28,7 @@ public class AppLv3 {
                 System.out.print("두 번째 숫자를 입력하세요: ");
                 input = sc.next();
                 try {
-                    num2 = Long.parseLong(input);
+                    num2 = Double.parseDouble(input);
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요!");
@@ -37,12 +37,11 @@ public class AppLv3 {
 
             System.out.print("사칙연산 기호를 입력하세요 (+, -, *, /): ");
             input = sc.next();
-            char operator = input.charAt(0);
 
             try {
-                OperatorTypeLv3 op = OperatorTypeLv3.fromChar(operator);
-                long result = calc.calculate(num1, num2, op);
-                System.out.println(num1 + " " + operator + " " + num2 + " = " + result);
+                OperatorTypeLv3 op = OperatorTypeLv3.fromChar(input.charAt(0));
+                double result = calc.calculate(num1, num2, op);
+                System.out.println(num1 + " " + op.getSymbol() + " " + num2 + " = " + result);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -68,18 +67,18 @@ public class AppLv3 {
                         System.out.println("결과 목록이 초기화되었습니다.");
                     }
                     case "4" -> {
-                        long threshold;
+                        double threshold;
                         while (true) {
                             System.out.print("조회 기준 값을 입력하세요: ");
                             input = sc.next();
                             try {
-                                threshold = Long.parseLong(input);
+                                threshold = Double.parseDouble(input);
                                 break;
                             } catch (NumberFormatException e) {
                                 System.out.println("기준값를 입력해주세요!");
                             }
                         }
-                        List<Long> filteredResults = calc.getResultsGreaterThan(threshold);
+                        List<Double> filteredResults = calc.getResultsGreaterThan(threshold);
                         if (filteredResults.isEmpty())
                             System.out.println("조건을 만족하는 결과가 없습니다!");
                         else
