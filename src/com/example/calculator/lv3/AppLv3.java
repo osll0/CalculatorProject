@@ -1,8 +1,7 @@
 package com.example.calculator.lv3;
 
-import com.example.calculator.lv2.CalculatorLv2;
-
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppLv3 {
@@ -52,9 +51,10 @@ public class AppLv3 {
             while (!proceed) {
                 System.out.println("\n메뉴를 선택하세요.");
                 System.out.println("1. 오래된 결과 삭제");
-                System.out.println("2. 결과 목록 확인");
+                System.out.println("2. 전체 결과 목록 확인");
                 System.out.println("3. 결과 목록 초기화");
-                System.out.println("4. 넘어가기");
+                System.out.println("4. 결과 값 조회");
+                System.out.println("5. 넘어가기");
                 input = sc.next();
 
                 switch (input) {
@@ -67,7 +67,25 @@ public class AppLv3 {
                         calc.setResults(new LinkedList<>());
                         System.out.println("결과 목록이 초기화되었습니다.");
                     }
-                    case "4" -> proceed = true;
+                    case "4" -> {
+                        long threshold;
+                        while (true) {
+                            System.out.print("조회 기준 값을 입력하세요: ");
+                            input = sc.next();
+                            try {
+                                threshold = Long.parseLong(input);
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("기준값를 입력해주세요!");
+                            }
+                        }
+                        List<Long> filteredResults = calc.getResultsGreaterThan(threshold);
+                        if (filteredResults.isEmpty())
+                            System.out.println("조건을 만족하는 결과가 없습니다!");
+                        else
+                            System.out.println("조회 결과: " + filteredResults);
+                    }
+                    case "5" -> proceed = true;
                     default -> System.out.println("잘못된 입력입니다.");
                 }
             }
