@@ -18,7 +18,7 @@ public class CalculatorLv2 {
             }
             default -> throw new IllegalArgumentException("올바르지 못한 연산 기호입니다!");
         }
-        results.add(result);
+        addResult(result);
         return result;
     }
 
@@ -29,6 +29,10 @@ public class CalculatorLv2 {
     public void setResults(Queue<Long> newResults) {
         results.clear();
         results.addAll(newResults);
+    }
+
+    public void addResult(long result) {
+        results.add(result);
     }
 
     public void removeOldestResult() {
