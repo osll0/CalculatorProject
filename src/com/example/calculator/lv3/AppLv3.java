@@ -3,8 +3,12 @@ package com.example.calculator.lv3;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.util.stream.Collectors;
 
 public class AppLv3 {
+    private static final DecimalFormat DF = new DecimalFormat("0.##########");
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArithmeticCalculatorLv3<Double> calc = new ArithmeticCalculatorLv3<>();
@@ -41,7 +45,7 @@ public class AppLv3 {
             try {
                 OperatorTypeLv3 op = OperatorTypeLv3.fromChar(input.charAt(0));
                 double result = calc.calculate(num1, num2, op);
-                System.out.println(num1 + " " + op.getSymbol() + " " + num2 + " = " + result);
+                System.out.println(DF.format(num1) + " " + op.getSymbol() + " " + DF.format(num2) + " = " + DF.format(result));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -59,9 +63,9 @@ public class AppLv3 {
                 switch (input) {
                     case "1" -> {
                         calc.removeOldestResult();
-                        System.out.println("삭제 후 결과 목록: " + calc.getResults());
+                        System.out.println("삭제 후 결과 목록: [" + formatList(calc.getResults()) + "]");
                     }
-                    case "2" -> System.out.println("현재 결과 목록: " + calc.getResults());
+                    case "2" -> System.out.println("현재 결과 목록: [" + formatList(calc.getResults()) + "]");
                     case "3" -> {
                         calc.setResults(new LinkedList<>());
                         System.out.println("결과 목록이 초기화되었습니다.");
@@ -82,7 +86,7 @@ public class AppLv3 {
                         if (filteredResults.isEmpty())
                             System.out.println("조건을 만족하는 결과가 없습니다!");
                         else
-                            System.out.println("조회 결과: " + filteredResults);
+                            System.out.println("조회 결과: [" + formatList(filteredResults) + "]");
                     }
                     case "5" -> proceed = true;
                     default -> System.out.println("잘못된 입력입니다.");
@@ -94,5 +98,10 @@ public class AppLv3 {
             input = sc.nextLine();
             if (input.equalsIgnoreCase("exit")) break;
         }
+    }
+    private static String formatList(List<Double> list) {
+        return list.stream()
+                .map(DF::format)
+                .collect(Collectors.joining(", "));
     }
 }
